@@ -1,0 +1,14 @@
+Create new branch
+git checkout -b new-branch-name
+
+Add changes to staging
+git add .
+
+Commit changes
+git commit -m "description"
+
+Push new branch to remote repo
+git push origin new-branch-name
+
+Create pull request
+- Merge new-branch-name into master
