@@ -15,7 +15,7 @@ import java.util.List;
 
 public class AmazonScraper {
 
-    public static void main(String[] args) {
+    public static List<Product> scrapeAmazonProducts(String searchUrl) throws InterruptedException{
         
         WebDriver driver = new ChromeDriver();
         driver.get("https://www.amazon.com/dp");
@@ -34,7 +34,7 @@ public class AmazonScraper {
 
         List<Product> productList = new ArrayList<>();
 
-        for (int index = 3; index < 10; index++) {
+        for (int index = 3; index < 40; index++) {
             try {
                 String productBase = "//div[@data-index='"+index+"']";
                 
@@ -68,6 +68,8 @@ public class AmazonScraper {
         for (Product product : productList) {
             System.out.println(product);
         }
+
+        return productList;
 
         
 
