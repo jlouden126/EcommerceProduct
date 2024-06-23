@@ -4,8 +4,14 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.remote.RemoteWebDriver;
+
 import java.lang.Thread;
+import java.net.MalformedURLException;
+import java.net.URISyntaxException;
+import java.net.URL;
 
 
 import java.util.ArrayList;
@@ -15,10 +21,9 @@ import java.util.List;
 
 public class AmazonScraper {
 
-    public static List<Product> scrapeAmazonProducts(String searchUrl) throws InterruptedException{
-        
-        WebDriver driver = new ChromeDriver();
-        driver.get("https://www.amazon.com/dp");
+    public static List<Product> scrapeAmazonProducts(String searchUrl) throws InterruptedException, MalformedURLException, URISyntaxException{
+        WebDriver driver = SeleniumConfig.getRemoteChromeDriver();
+        driver.get(searchUrl);
 
         WebElement textArea = driver.findElement(By.xpath("//input[@id=\"twotabsearchtextbox\"]"));
         WebElement searchButton = driver.findElement(By.xpath("//input[@id='nav-search-submit-button']"));
@@ -54,7 +59,6 @@ public class AmazonScraper {
                 title = titleElement.getText().trim();
                 price = priceElementDollar.getText().trim() + '.' + priceElementCent.getText().trim();
 
-                
                 
                 Product product = new Product(pictureUrl, title, price);
                 productList.add(product);
