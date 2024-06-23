@@ -7,16 +7,25 @@
   <groupId>com.jacob</groupId>
   <artifactId>ecommerceproduct</artifactId>
   <version>1.0-SNAPSHOT</version>
-
   <name>ecommerceproduct</name>
   <!-- FIXME change it to the project's website -->
   <url>http://www.example.com</url>
 
   <properties>
+    <java.version>21</java.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <spring-boot.version>3.3.1</spring-boot.version>
+
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
   </properties>
+
+  <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.3.1</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
 
   <dependencies>
     <dependency>
@@ -36,32 +45,44 @@
       <version>4.3.4</version>
     </dependency> -->
     <!-- Spring Boot Starter Web -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-            <version>2.7.1</version>
-        </dependency>
+      <dependency>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-starter-web</artifactId>
+          <version>3.3.1</version>
+      </dependency>
 
-        <!-- Spring Boot Starter Thymeleaf -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-thymeleaf</artifactId>
-            <version>2.7.1</version>
-        </dependency>
+      <!-- Spring Boot Starter Thymeleaf -->
+      <dependency>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-starter-thymeleaf</artifactId>
+          <version>3.3.1</version>
+      </dependency>
 
-        <!-- Spring Boot Starter Test -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <version>2.7.1</version>
-            <scope>test</scope>
-        </dependency>
-    
+      <!-- Spring Boot Starter Test -->
+      <dependency>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-starter-test</artifactId>
+          <version>3.3.1</version>
+          <scope>test</scope>
+      </dependency> 
+        
   </dependencies>
 
   <build>
-    <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
       <plugins>
+      <plugin>  
+            <!-- Build an executable JAR -->  
+            <groupId>org.apache.maven.plugins</groupId>  
+            <artifactId>maven-jar-plugin</artifactId>  
+            <version>3.1.0</version>  
+            <configuration>  
+                <archive>  
+                    <manifest>  
+                        <mainClass>com.jacob.ProductApplication</mainClass>  
+                    </manifest>  
+                </archive>  
+            </configuration>  
+        </plugin>  
         <!-- clean lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#clean_Lifecycle -->
         <plugin>
           <artifactId>maven-clean-plugin</artifactId>
@@ -79,10 +100,6 @@
         <plugin>
           <artifactId>maven-surefire-plugin</artifactId>
           <version>2.22.1</version>
-        </plugin>
-        <plugin>
-          <artifactId>maven-jar-plugin</artifactId>
-          <version>3.0.2</version>
         </plugin>
         <plugin>
           <artifactId>maven-install-plugin</artifactId>
@@ -104,12 +121,11 @@
         <plugin>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-maven-plugin</artifactId>
-            <version>2.7.1</version>
+            <version>3.3.1</version>
             <configuration>
                 <mainClass>com.jacob.ProductApplication</mainClass>
             </configuration>
         </plugin>
       </plugins>
-    </pluginManagement>
   </build>
 </project>
