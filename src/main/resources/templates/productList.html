@@ -1,13 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Product List</title>
-    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
 </head>
 <body>
-    <h1>Product List</h1>
+    <div>
+        <form action="/" method="get">
+            <input type="text" name="productName" placeholder="Search for products..." th:value="${productName}">
+            <button type="submit">Search</button>
+        </form>
+    </div>
+    <div>
+        <p>Total Products: <span th:text="${productCount}">0</span></p>
+        <form action="/" method="get">
+            <input type="hidden" name="productName" th:value="${productName}">
+            <select name="sortOrder" onchange="this.form.submit()">
+                <option value="">Sort by</option>
+                <option value="priceLowToHigh">Price Low to High</option>
+                <option value="priceHighToLow">Price High to Low</option>
+            </select>
+        </form>
+    </div>
     <div id="product-container">
         <div th:each="product : ${products}" class="product">
             <div class="image-container">
@@ -19,18 +33,15 @@
                 <span class="tooltip" th:text="'Product: ' + ${product.title}"></span>
             </div>
             <p class="product-price" th:text="'Price: $' + ${product.price}"></p>
+            <p><a th:href="${product.link}" target="_blank">View Product on Website</a></p>
         </div>
     </div>
-
     <script>
         function showTooltip(element) {
-            const tooltip = element.nextElementSibling;
-            tooltip.style.visibility = 'visible';
+            element.nextElementSibling.style.display = 'block';
         }
-
         function hideTooltip(element) {
-            const tooltip = element.nextElementSibling;
-            tooltip.style.visibility = 'hidden';
+            element.nextElementSibling.style.display = 'none';
         }
     </script>
 </body>

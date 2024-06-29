@@ -12,3 +12,17 @@ git push origin new-branch-name
 
 Create pull request
 - Merge new-branch-name into master
+
+# Ensure you are on the master branch
+git checkout master
+
+# Fetch the latest changes from the remote repository
+git fetch origin
+
+# Merge the latest changes into your local master branch
+git merge origin/master
+
+# Alternatively, you can use the pull command
+# git pull origin master
+
+

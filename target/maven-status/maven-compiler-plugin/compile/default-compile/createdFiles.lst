@@ -1,5 +1,6 @@
-com/jacob/SeleniumConfig.class
-com/jacob/ProductController.class
-com/jacob/AmazonScraper.class
+com/jacob/service/ProductService.class
+com/jacob/controller/ProductController.class
+com/jacob/model/Product.class
+com/jacob/scraper/AmazonScraper.class
+com/jacob/config/SeleniumConfig.class
 com/jacob/ProductApplication.class
-com/jacob/Product.class
