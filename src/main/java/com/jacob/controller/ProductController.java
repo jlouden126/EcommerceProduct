@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.ArrayList;
 import java.util.concurrent.CompletableFuture;
 import java.util.logging.Logger;
 
@@ -25,27 +26,43 @@ public class ProductController {
     @GetMapping("/")
     public String getProducts(@RequestParam(name = "productName", required = false) String productName,
                               @RequestParam(name = "sortOrder", required = false) String sortOrder, Model model) {
-        List<Product> products = Collections.emptyList();
+        List<Product> products = new ArrayList<>();
         if (productName != null && !productName.isEmpty()) {
-            CompletableFuture<List<Product>> productsFuture = productService.getProductsAsync(productName);
+            CompletableFuture<List<Product>> amazonProductsFuture = productService.getAmazonProductsAsync(productName);
+            CompletableFuture<List<Product>> ebayProductsFuture = productService.getEbayProductsAsync(productName);
             try {
-                products = productsFuture.get();  // Use get() to properly handle exceptions
-                if (sortOrder != null) {
-                    if (sortOrder.equals("priceLowToHigh")) {
-                        products.sort(Comparator.comparingDouble(Product::getPrice));
-                    } else if (sortOrder.equals("priceHighToLow")) {
-                        products.sort(Comparator.comparingDouble(Product::getPrice).reversed());
-                    }
-                }
+                List<Product> amazonProducts = amazonProductsFuture.get();
+                List<Product> ebayProducts = ebayProductsFuture.get();
+                products.addAll(amazonProducts);
+                products.addAll(ebayProducts);          
+
+                //Server side sort
+                // if (sortOrder != null) {
+                //     if (sortOrder.equals("priceLowToHigh")) {
+                //         products.sort(Comparator.comparingDouble(Product::getPrice));
+                //     } else if (sortOrder.equals("priceHighToLow")) {
+                //         products.sort(Comparator.comparingDouble(Product::getPrice).reversed());
+                //     }
+                // }
             } catch (Exception e) {
                 logger.severe("Error fetching products: " + e.getMessage());
                 e.printStackTrace();  // Log the exception
             }
         }
 
+        // Sort products based on sortOrder parameter
+        if (sortOrder != null && !products.isEmpty()) {
+            if (sortOrder.equals("priceLowToHigh")) {
+                products.sort(Comparator.comparingDouble(Product::getPrice));
+            } else if (sortOrder.equals("priceHighToLow")) {
+                products.sort(Comparator.comparingDouble(Product::getPrice).reversed());
+            }
+        }
+
         model.addAttribute("products", products);
         model.addAttribute("productName", productName);
         model.addAttribute("productCount", products.size());  // Add product count attribute
+        model.addAttribute("sortOrder", sortOrder);
         return "productList";
     }
 }

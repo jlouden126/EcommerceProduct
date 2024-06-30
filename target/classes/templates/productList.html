@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Product List</title>
-    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <link rel="stylesheet" th:href="@{css/styles.css}">
 </head>
 <body>
     <div>
@@ -17,8 +17,8 @@
             <input type="hidden" name="productName" th:value="${productName}">
             <select name="sortOrder" onchange="this.form.submit()">
                 <option value="">Sort by</option>
-                <option value="priceLowToHigh">Price Low to High</option>
-                <option value="priceHighToLow">Price High to Low</option>
+                <option value="priceLowToHigh" th:selected="${sortOrder == 'priceLowToHigh'}">Price Low to High</option>
+                <option value="priceHighToLow" th:selected="${sortOrder == 'priceHighToLow'}">Price High to Low</option>
             </select>
         </form>
     </div>
@@ -34,14 +34,18 @@
             </div>
             <p class="product-price" th:text="'Price: $' + ${product.price}"></p>
             <p><a th:href="${product.link}" target="_blank">View Product on Website</a></p>
+            <p class="product-source" th:text="${product.source}"></p>
         </div>
     </div>
     <script>
         function showTooltip(element) {
-            element.nextElementSibling.style.display = 'block';
+            const tooltip = element.nextElementSibling;
+            tooltip.style.visibility = 'visible';
         }
+
         function hideTooltip(element) {
-            element.nextElementSibling.style.display = 'none';
+            const tooltip = element.nextElementSibling;
+            tooltip.style.visibility = 'hidden';
         }
     </script>
 </body>

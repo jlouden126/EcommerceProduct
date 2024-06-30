@@ -33,8 +33,6 @@ public class AmazonScraper {
 
     public static List<Product> scrapeAmazonProducts(String productName) throws InterruptedException, MalformedURLException, URISyntaxException{
         WebDriver driver = SeleniumConfig.getLocalChromeDriver();
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-
         logger.info("Navigating to Amazon.com");
 
         driver.get("https://www.amazon.com/s?k=" + productName);
@@ -43,78 +41,76 @@ public class AmazonScraper {
         // textArea.click();
         // textArea.sendKeys(productName);
         // searchButton.click();
-
+        String source = "Amazon";
         logger.info("Waiting for search results to load");
-
         List<Product> productList = new ArrayList<>();
 
-        for (int index = 3; index < 40; index++) {
-            
-                String productBase = "//div[@data-index='"+index+"']";
+        try {
+            for (int index = 3; index < 40; index++) {
                 
-                // Initialize variables
-                String pictureUrl = null;
-                String title = null;
-                double price = 0;
-                String link = null;
-
-                WebElement pictureElement = null;
-                WebElement titleElement = null;
-                WebElement priceElementDollar = null;
-                WebElement priceElementCent = null;
-                WebElement linkElement = null;
-                String flags = "";
-                try {
-                    try {
-                        pictureElement = driver.findElement(By.xpath(productBase+"//img[@data-image-index]"));
-                        pictureUrl = pictureElement.getAttribute("src");
-                    } catch (NoSuchElementException e) {
-                        System.out.println("Item picture for index" + index + "is not a product");
-                        flags = flags + "Picture ";
-                    }
-
-                    try {
-                        titleElement = driver.findElement(By.xpath(productBase + "//span[contains(@class,'a-text-normal')]"));
-                        title = titleElement.getText().trim();
-                    } catch (NoSuchElementException e) {
-                        System.out.println("Item title for index" + index + "is not a product");
-                        continue;
-                    }
-
-                    try {
-                        priceElementDollar = driver.findElement(By.xpath(productBase + "//span[@class='a-price-whole']"));
-                        priceElementCent = driver.findElement(By.xpath(productBase + "//span[@class='a-price-fraction']"));
-                        String tempPrice = priceElementDollar.getText().trim().replace(",", "") + '.' + priceElementCent.getText().trim();
-                        price = Double.parseDouble(tempPrice);
-                    } catch (NoSuchElementException e) {
-                        System.out.println("Item price  for index" + index + "is not a product");
-                        flags = flags + "Price ";
-                    }
-
+                    String productBase = "//div[@data-index='"+index+"']";
                     
+                    // Initialize variables
+                    String pictureUrl = null;
+                    String title = null;
+                    double price = 0;
+                    String link = null;
 
+                    WebElement pictureElement = null;
+                    WebElement titleElement = null;
+                    WebElement priceElementDollar = null;
+                    WebElement priceElementCent = null;
+                    WebElement linkElement = null;
+                    String flags = "";
                     try {
-                        linkElement = driver.findElement(By.xpath(productBase + "//a[@tabindex='-1']"));
-                        link = linkElement.getAttribute("href");
+                        try {
+                            pictureElement = driver.findElement(By.xpath(productBase+"//img[@data-image-index]"));
+                            pictureUrl = pictureElement.getAttribute("src");
+                        } catch (NoSuchElementException e) {
+                            System.out.println("Item picture for index" + index + "is not a product");
+                            flags = flags + "Picture ";
+                        }
 
+                        try {
+                            titleElement = driver.findElement(By.xpath(productBase + "//span[contains(@class,'a-text-normal')]"));
+                            title = titleElement.getText().trim();
+                        } catch (NoSuchElementException e) {
+                            System.out.println("Item title for index" + index + "is not a product");
+                            continue;
+                        }
+
+                        try {
+                            priceElementDollar = driver.findElement(By.xpath(productBase + "//span[@class='a-price-whole']"));
+                            priceElementCent = driver.findElement(By.xpath(productBase + "//span[@class='a-price-fraction']"));
+                            String tempPrice = priceElementDollar.getText().trim().replace(",", "") + '.' + priceElementCent.getText().trim();
+                            price = Double.parseDouble(tempPrice);
+                        } catch (NoSuchElementException e) {
+                            System.out.println("Item price  for index" + index + "is not a product");
+                            flags = flags + "Price ";
+                        }
+
+                        
+
+                        try {
+                            linkElement = driver.findElement(By.xpath(productBase + "//a[@tabindex='-1']"));
+                            link = linkElement.getAttribute("href");
+
+                        } catch (NoSuchElementException e) {
+                            System.out.println("Item link for index" + index + "is not a product");
+                            flags = flags + "Link ";
+                        }
+
+                        Product product = new Product(pictureUrl, title, price, link, source);
+                        productList.add(product);
                     } catch (NoSuchElementException e) {
-                        System.out.println("Item link for index" + index + "is not a product");
-                        flags = flags + "Link ";
+                        System.out.println(flags + " not added to product");
                     }
-
-                    Product product = new Product(pictureUrl, title, price, link);
-                    productList.add(product);
-                } catch (NoSuchElementException e) {
-                    System.out.println(flags + " not added to product");
-                }
-                
-              
-
             
-            
+            }
+        } finally {
+            driver.quit();
         }
-    
-        driver.quit();
+
         return productList;
     }
 }

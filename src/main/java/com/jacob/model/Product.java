@@ -5,15 +5,25 @@ public class Product {
     private String title;
     private double price;
     private String link;
+    private String source;
 
-    public Product(String pictureUrl, String title, double price, String link) {
+    public Product(String pictureUrl, String title, double price, String link, String source) {
         this.pictureUrl = pictureUrl;
         this.title = title;
         this.price = price;
         this.link = link;
+        this.source = source;
     }
 
     // Getters and setters
+
+    public String getSource() {
+        return source;
+    }
+
+    public void setSource(String link) {
+        this.source = source;
+    }
 
     public String getLink() {
         return link;
@@ -54,6 +64,7 @@ public class Product {
                 ", title='" + title + '\'' +
                 ", price='" + price + '\'' +
                 ", link='" + link + '\''   +
+                ", source='" + source + '\''   +
                 '}';
     }
 }
