@@ -3,6 +3,8 @@ package com.jacob.service;
 import com.jacob.model.Product;
 import com.jacob.scraper.AmazonScraper;
 import com.jacob.scraper.EbayScraper;
+import com.jacob.scraper.WalmartScraper;
+
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.stereotype.Service;
@@ -33,6 +35,18 @@ public class ProductService {
         List<Product> products = new ArrayList<>();
         try {
             products = EbayScraper.scrapeEbayProducts(productName);
+        } catch (Exception e) {
+            e.printStackTrace();  // Log the exception
+            products = new ArrayList<>();
+        }
+        return CompletableFuture.completedFuture(products);
+    }
+
+    @Async
+    public CompletableFuture<List<Product>> getWalmartProductsAsync(String productName) {
+        List<Product> products = new ArrayList<>();
+        try {
+            products = WalmartScraper.scrapeWalmartProducts(productName);
         } catch (Exception e) {
             e.printStackTrace();  // Log the exception
             products = new ArrayList<>();
