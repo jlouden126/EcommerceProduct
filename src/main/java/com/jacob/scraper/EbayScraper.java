@@ -31,7 +31,10 @@ public class EbayScraper {
     public static List<Product> scrapeEbayProducts(String productName) throws InterruptedException, MalformedURLException, URISyntaxException {
         //List<Product> scrapeEbayProducts(String searchUrl)
         WebDriver driver = SeleniumConfig.getLocalChromeDriver();
+        logger.info("Navigating to Ebay.com");
+
         driver.get("https://www.ebay.com/sch/i.html?_from=R40&_trksid=p4432023.m570.l1313&_nkw="+productName+"&_sacat=0");
+
         logger.info("Waiting for ebay search results to load");
         String source = "Ebay";
         // WebElement textArea = driver.findElement(By.xpath("//input[@type='text']"));

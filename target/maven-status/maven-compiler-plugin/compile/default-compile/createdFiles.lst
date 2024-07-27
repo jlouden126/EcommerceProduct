@@ -1,5 +1,6 @@
 com/jacob/scraper/EbayScraper.class
 com/jacob/service/ProductService.class
+com/jacob/scraper/WalmartScraper.class
 com/jacob/controller/ProductController.class
 com/jacob/model/Product.class
 com/jacob/scraper/AmazonScraper.class

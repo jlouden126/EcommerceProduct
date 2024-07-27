@@ -34,13 +34,8 @@ public class AmazonScraper {
     public static List<Product> scrapeAmazonProducts(String productName) throws InterruptedException, MalformedURLException, URISyntaxException{
         WebDriver driver = SeleniumConfig.getLocalChromeDriver();
         logger.info("Navigating to Amazon.com");
-
         driver.get("https://www.amazon.com/s?k=" + productName);
-        // WebElement textArea = driver.findElement(By.xpath("//input[@id=\"twotabsearchtextbox\"]"));
-        // WebElement searchButton = driver.findElement(By.xpath("//input[@id='nav-search-submit-button']"));
-        // textArea.click();
-        // textArea.sendKeys(productName);
-        // searchButton.click();
+        
         String source = "Amazon";
         logger.info("Waiting for search results to load");
         List<Product> productList = new ArrayList<>();
