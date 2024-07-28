@@ -17,6 +17,10 @@
     <spring-boot.version>3.3.1</spring-boot.version>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
+    <serenity.version>4.1.20</serenity.version>
+    <cucumber.version>7.18.1</cucumber.version>
+
+
   </properties>
 
   <parent>
@@ -33,6 +37,67 @@
       <version>4.11</version>
       <scope>test</scope>
     </dependency>
+
+  <!-- Serenity dependencies -->
+   <dependency>
+        <groupId>net.serenity-bdd</groupId>
+        <artifactId>serenity-core</artifactId>
+        <version>${serenity.version}</version>
+        <scope>test</scope>
+    </dependency>
+    <dependency>
+        <groupId>net.serenity-bdd</groupId>
+        <artifactId>serenity-junit</artifactId>
+        <version>${serenity.version}</version>
+        <scope>test</scope>
+    </dependency>
+    <dependency>
+        <groupId>net.serenity-bdd</groupId>
+        <artifactId>serenity-screenplay</artifactId>
+        <version>${serenity.version}</version>
+        <scope>test</scope>
+    </dependency>
+    <dependency>
+        <groupId>net.serenity-bdd</groupId>
+        <artifactId>serenity-rest-assured</artifactId>
+        <version>${serenity.version}</version>
+        <scope>test</scope>
+    </dependency>
+    
+    <dependency>
+        <groupId>net.serenity-bdd</groupId>
+        <artifactId>serenity-screenplay-webdriver</artifactId>
+        <version>${serenity.version}</version>
+        <scope>test</scope>
+    </dependency>
+    <dependency>
+        <groupId>net.serenity-bdd</groupId>
+        <artifactId>serenity-cucumber</artifactId>
+        <version>${serenity.version}</version>
+        <scope>test</scope>
+    </dependency>
+
+    <!-- Cucumber dependencies -->
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-java</artifactId>
+            <version>${cucumber.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-junit</artifactId>
+            <version>${cucumber.version}</version>
+        </dependency>
+        
+       
+        <!-- Logging dependencies -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>1.7.32</version>
+            <scope>test</scope>
+        </dependency>
+  
     <dependency>
         <groupId>org.seleniumhq.selenium</groupId>
         <artifactId>selenium-java</artifactId>
@@ -122,6 +187,35 @@
         <plugin>
           <artifactId>maven-project-info-reports-plugin</artifactId>
           <version>3.0.0</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <version>3.3.1</version> 
+        </plugin>
+        <plugin>
+            <groupId>net.serenity-bdd.maven.plugins</groupId>
+            <artifactId>serenity-maven-plugin</artifactId>
+            <version>${serenity.version}</version>
+            <configuration>
+              <tags>${tags}</tags>
+            </configuration>
+            <executions>
+                <execution>
+                    <id>check-feature-files</id>
+                    <phase>process-test-resources</phase>
+                    <goals>
+                        <goal>check-gherkin</goal>
+                    </goals>
+                </execution>
+                <execution>
+                    <id>serenity-reports</id>
+                    <phase>post-integration-test</phase>
+                    <goals>
+                        <goal>aggregate</goal>
+                    </goals>
+                </execution>
+            </executions>
         </plugin>
         <plugin>
             <groupId>org.springframework.boot</groupId>
