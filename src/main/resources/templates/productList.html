@@ -12,7 +12,6 @@
                 <h3>Search Options</h3>
                 <label><input type="checkbox" name="searchSites" value="amazon" th:checked="${searchSites != null ? #lists.contains(searchSites, 'amazon') : false}"> Amazon</label>
                 <label><input type="checkbox" name="searchSites" value="ebay" th:checked="${searchSites != null ? #lists.contains(searchSites, 'ebay') : false}"> eBay</label>
-                <label><input type="checkbox" name="searchSites" value="bestbuy" th:checked="${searchSites != null ? #lists.contains(searchSites, 'bestbuy') : false}"> BestBuy</label>
 
                 <!-- Add more checkboxes for other sites as needed -->
                 <label><input type="checkbox" name="searchSites" value="all" onclick="toggleCheckboxes(this, 'searchSites')" th:checked="${searchSites != null ? #lists.contains(searchSites, 'all') : false}"> All</label>
@@ -32,7 +31,6 @@
                     <h3>Filter Results</h3>
                     <label><input type="checkbox" name="filterSites" value="Amazon" th:checked="${filterSites != null ? #lists.contains(filterSites, 'Amazon') : false}"> Amazon</label>
                     <label><input type="checkbox" name="filterSites" value="Ebay" th:checked="${filterSites != null ? #lists.contains(filterSites, 'Ebay') : false}"> eBay</label>
-                    <label><input type="checkbox" name="filterSites" value="BestBuy" th:checked="${filterSites != null ? #lists.contains(filterSites, 'BestBuy') : false}"> BestBuy</label>
                     <label><input type="checkbox" name="filterSites" value="all" onclick="toggleCheckboxes(this, 'filterSites')" th:checked="${filterSites != null ? #lists.contains(filterSites, 'all') : false}"> All</label>
                 </div>
                 
@@ -54,14 +52,17 @@
             <div class="image-container">
                 <img th:src="${product.pictureUrl}" th:alt="${product.title}">
             </div>
-            <div class="product-title-wrapper">
-                <span class="product-title" th:text="${product.title}"></span>
+            <div class="product-details">
+                <div class="product-title-wrapper">
+                    <span class="product-title" th:text="${product.title}"></span>
+                </div>
+                <p class="product-price" th:text="'Price: $' + ${product.price}"></p>
+                <p><a th:href="${product.link}" target="_blank">View Product on Website</a></p>
+                <p class="product-source" th:text="${product.source}"></p>
             </div>
-            <p class="product-price" th:text="'Price: $' + ${product.price}"></p>
-            <p><a th:href="${product.link}" target="_blank">View Product on Website</a></p>
-            <p class="product-source" th:text="${product.source}"></p>
         </div>
     </div>
+    
     <script>
 
         function toggleCheckboxes(source, name) {

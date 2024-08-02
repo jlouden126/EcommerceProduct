@@ -5,6 +5,8 @@ import com.jacob.scraper.AmazonScraper;
 import com.jacob.scraper.EbayScraper;
 import com.jacob.scraper.WalmartScraper;
 import com.jacob.scraper.BestBuyScraper;
+import com.jacob.scraper.TargetScraper;
+
 
 
 import org.springframework.scheduling.annotation.Async;
@@ -61,6 +63,18 @@ public class ProductService {
         List<Product> products = new ArrayList<>();
         try {
             products = BestBuyScraper.scrapeBestBuyProducts(productName);
+        } catch (Exception e) {
+            e.printStackTrace();  // Log the exception
+            products = new ArrayList<>();
+        }
+        return CompletableFuture.completedFuture(products);
+    }
+
+    @Async
+    public CompletableFuture<List<Product>> getTargetProductsAsync(String productName) {
+        List<Product> products = new ArrayList<>();
+        try {
+            products = TargetScraper.scrapeTargetProducts(productName);
         } catch (Exception e) {
             e.printStackTrace();  // Log the exception
             products = new ArrayList<>();
