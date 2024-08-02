@@ -40,13 +40,13 @@ public class EbayScraper {
         // WebElement textArea = driver.findElement(By.xpath("//input[@type='text']"));
         // WebElement searchButton = driver.findElement(By.xpath("//input[@type='submit']"));
         // textArea.click();
-        // textArea.sendKeys("Basketball");
+        // textArea.sendKeys("Basketball");s
         // searchButton.click();
 
         // Locate all <li> elements with the specific class for eBay items
         List<WebElement> productElements = driver.findElements(By.xpath("//li[@data-viewport]"));
-        if (productElements.size() > 40) {
-            productElements = productElements.subList(0, 40);
+        if (productElements.size() > 50) {
+            productElements = productElements.subList(0, 50);
         }
     
         List<Product> productList = new ArrayList<>();

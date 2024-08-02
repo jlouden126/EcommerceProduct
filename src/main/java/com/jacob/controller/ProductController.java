@@ -62,14 +62,7 @@ public class ProductController {
                     }
                 }
 
-                if (searchSites.contains("all") || searchSites.contains("bestbuy")) {
-                    CompletableFuture<List<Product>> bestBuyProductsFuture = productService.getBestBuyProductsAsync(productName);
-                    try {
-                        cachedProducts.addAll(bestBuyProductsFuture.get());
-                    } catch (Exception e) {
-                        logger.severe("Error fetching best buy products: " + e.getMessage());
-                    }
-                }
+                
 
                 
 

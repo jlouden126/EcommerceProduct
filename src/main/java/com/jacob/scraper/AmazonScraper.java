@@ -41,7 +41,7 @@ public class AmazonScraper {
         List<Product> productList = new ArrayList<>();
 
         try {
-            for (int index = 3; index < 40; index++) {
+            for (int index = 3; index < 50; index++) {
                 
                     String productBase = "//div[@data-index='"+index+"']";
                     

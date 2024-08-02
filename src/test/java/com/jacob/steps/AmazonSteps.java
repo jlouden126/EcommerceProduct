@@ -11,7 +11,6 @@ import io.restassured.response.ValidatableResponse;
 
 public class AmazonSteps {
 
-    
     @Step 
     public ValidatableResponse searchAmazon() {
         return given()
