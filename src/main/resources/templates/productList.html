@@ -12,6 +12,10 @@
                 <h3>Search Options</h3>
                 <label><input type="checkbox" name="searchSites" value="amazon" th:checked="${searchSites != null ? #lists.contains(searchSites, 'amazon') : false}"> Amazon</label>
                 <label><input type="checkbox" name="searchSites" value="ebay" th:checked="${searchSites != null ? #lists.contains(searchSites, 'ebay') : false}"> eBay</label>
+                <label><input type="checkbox" name="searchSites" value="meijer" th:checked="${searchSites != null ? #lists.contains(searchSites, 'meijer') : false}"> Meijer</label>                
+                <!-- <label><input type="checkbox" name="searchSites" value="target" th:checked="${searchSites != null ? #lists.contains(searchSites, 'target') : false}"> Target</label> -->
+
+
 
                 <!-- Add more checkboxes for other sites as needed -->
                 <label><input type="checkbox" name="searchSites" value="all" onclick="toggleCheckboxes(this, 'searchSites')" th:checked="${searchSites != null ? #lists.contains(searchSites, 'all') : false}"> All</label>
@@ -31,6 +35,9 @@
                     <h3>Filter Results</h3>
                     <label><input type="checkbox" name="filterSites" value="Amazon" th:checked="${filterSites != null ? #lists.contains(filterSites, 'Amazon') : false}"> Amazon</label>
                     <label><input type="checkbox" name="filterSites" value="Ebay" th:checked="${filterSites != null ? #lists.contains(filterSites, 'Ebay') : false}"> eBay</label>
+                    <label><input type="checkbox" name="filterSites" value="Meijer" th:checked="${filterSites != null ? #lists.contains(filterSites, 'Meijer') : false}"> Meijer</label>
+                    <!-- <label><input type="checkbox" name="filterSites" value="Target" th:checked="${filterSites != null ? #lists.contains(filterSites, 'Meijer') : false}"> Target</label> -->
+
                     <label><input type="checkbox" name="filterSites" value="all" onclick="toggleCheckboxes(this, 'filterSites')" th:checked="${filterSites != null ? #lists.contains(filterSites, 'all') : false}"> All</label>
                 </div>
                 
