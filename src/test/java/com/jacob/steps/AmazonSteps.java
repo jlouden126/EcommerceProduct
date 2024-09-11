@@ -6,7 +6,6 @@ import org.junit.Assert;
 import io.restassured.response.ValidatableResponse;
 import net.serenitybdd.rest.SerenityRest;
 import static net.serenitybdd.rest.SerenityRest.given;
-import io.restassured.response.ValidatableResponse;
 
 
 public class AmazonSteps {

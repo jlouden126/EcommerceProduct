@@ -1,6 +1,9 @@
 package com.jacob.controller;
 
 import com.jacob.service.ProductService;
+import com.jacob.service.MeijerService;
+import com.jacob.service.TargetService;
+
 import com.jacob.model.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -25,6 +28,12 @@ public class ProductController {
 
     @Autowired
     private ProductService productService;
+
+    @Autowired
+    private MeijerService meijerService;
+
+    @Autowired
+    private TargetService targetService;
 
     private static List<Product> cachedProducts;
     private static String lastProductName;
@@ -61,6 +70,17 @@ public class ProductController {
                         logger.severe("Error fetching eBay products: " + e.getMessage());
                     }
                 }
+
+                // Add Meijer API call
+                if (searchSites.contains("all") || searchSites.contains("meijer")) {
+                    List<Product> meijerProducts = meijerService.getMeijerProducts(productName);
+                    cachedProducts.addAll(meijerProducts);
+                }
+
+                // if (searchSites.contains("all") || searchSites.contains("target")) {
+                //     List<Product> targetProducts = targetService.getTargetProducts(productName);
+                //     cachedProducts.addAll(targetProducts);
+                // }
 
                 
 

@@ -52,29 +52,31 @@
         <scope>test</scope>
     </dependency>
     <dependency>
-        <groupId>net.serenity-bdd</groupId>
-        <artifactId>serenity-screenplay</artifactId>
-        <version>${serenity.version}</version>
-        <scope>test</scope>
+        <groupId>com.fasterxml.jackson.core</groupId>
+        <artifactId>jackson-databind</artifactId>
     </dependency>
     <dependency>
         <groupId>net.serenity-bdd</groupId>
-        <artifactId>serenity-rest-assured</artifactId>
+        <artifactId>serenity-screenplay</artifactId>
         <version>${serenity.version}</version>
         <scope>test</scope>
     </dependency>
     
     <dependency>
         <groupId>net.serenity-bdd</groupId>
+        <artifactId>serenity-rest-assured</artifactId>
+        <version>${serenity.version}</version>
+    </dependency>
+    
+    <dependency>
+        <groupId>net.serenity-bdd</groupId>
         <artifactId>serenity-screenplay-webdriver</artifactId>
         <version>${serenity.version}</version>
-        <scope>test</scope>
     </dependency>
     <dependency>
         <groupId>net.serenity-bdd</groupId>
         <artifactId>serenity-cucumber</artifactId>
         <version>${serenity.version}</version>
-        <scope>test</scope>
     </dependency>
 
     <!-- Cucumber dependencies -->
@@ -87,6 +89,11 @@
             <groupId>io.cucumber</groupId>
             <artifactId>cucumber-junit</artifactId>
             <version>${cucumber.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20240303</version>
         </dependency>
         
        
